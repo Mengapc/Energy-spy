@@ -1,8 +1,15 @@
 CREATE TABLE usuarios(
   codigo int(2) unsigned AUTO_INCREMENT,
-  endereco varchar(50) ,
+  endereco varchar(50),
   email varchar(50),
-  gasto_energia varchar(50),
-  gasto_dinheiro varchar(50),
   PRIMARY KEY (codigo)
 );
+/*talvez seja necessário alterar a coluna dessa tabela de inteiro para decimal*/
+
+CREATE TABLE dados(
+	fatorpotencia int(4) DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    tensao int(4),
+    correnteelétrica int(4),
+    frequencia int(4),
+    
+    ESSE BANCO DE DADOS AINDA ESTÁ EM DESENVOLVIMENTO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
