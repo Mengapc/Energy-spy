@@ -1,15 +1,30 @@
-CREATE TABLE usuarios(
-  codigo int(2) unsigned AUTO_INCREMENT,
-  endereco varchar(50),
-  email varchar(50),
-  PRIMARY KEY (codigo)
-);
-/*talvez seja necessário alterar a coluna dessa tabela de inteiro para decimal*/
 
-CREATE TABLE dados(
-	fatorpotencia int(4) DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    tensao int(4),
-    correnteelétrica int(4),
-    frequencia int(4),
+CREATE TABLE cliente (
+                
+		cod_cliente INT AUTO_INCREMENT NOT NULL,
+                nome VARCHAR(100) NOT NULL,
+                email VARCHAR(100) NOT NULL,
+                endereco VARCHAR(255) NOT NULL,
+                PRIMARY KEY (cod_cliente)
+);
+
+
+CREATE TABLE leitura (
+                
+		cod_cliente INT NOT NULL,
+                datahora DATETIME NOT NULL,
+                frequencia INT NOT NULL,
+                tensao INT NOT NULL,
+                potencia INT NOT NULL,
+                correnteeletrica INT NOT NULL,
+                PRIMARY KEY (cod_cliente, datahora)
+);
+
+
+ALTER TABLE leitura ADD CONSTRAINT cliente_leituras_fk
+FOREIGN KEY (cod_cliente)
+REFERENCES cliente (cod_cliente)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
     
     ESSE BANCO DE DADOS AINDA ESTÁ EM DESENVOLVIMENTO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
