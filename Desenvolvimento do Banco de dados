@@ -13,7 +13,6 @@ CREATE TABLE leitura (
                 
 		cod_cliente INT NOT NULL,
                 datahora DATETIME NOT NULL,
-                frequencia INT NOT NULL,
                 tensao INT NOT NULL,
                 potencia INT NOT NULL,
                 correnteeletrica INT NOT NULL,
@@ -26,5 +25,3 @@ FOREIGN KEY (cod_cliente)
 REFERENCES cliente (cod_cliente)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
-    
-    ESSE BANCO DE DADOS AINDA ESTÁ EM DESENVOLVIMENTO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
