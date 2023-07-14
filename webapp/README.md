@@ -1,0 +1,44 @@
+# Python Django
+python -m venv env
+source env/bin/activate
+pip install django
+
+django-admin startproject energyspy .
+
+django-admin startapp webenergyspy
+
+pip install psycopg2
+
+pip install django-simple-json-api
+pip install python-dateutil
+
+# Modelo de banco de dados
+python manage.py makemigrations webenergyspy
+python manage.py migrate
+
+python manage.py createsuperuser
+
+# Adicionar WebenergyspyConfig no arquivo energyspy/settings.py:
+INSTALLED_APPS = [
+    "webenergyspy.apps.WebenergyspyConfig",
+    ...
+]
+
+# Executando o servidor
+python manage.py runserver
+
+
+# PostgreSQL Database
+Host: energyspydb
+Usuário: psql
+Senha: ES061006!
+
+
+# Deploy
+az login
+
+az webapp up --resource-group energy-spy -r "PYTHON|3.11" --location "Brazil South" --plan 5aa29ddd-be0c-4e4a-af31-658675bda958 --sku B1 --name energyspy
+
+# Open SSH:
+energyspy.scm.azurewebsites.net/webssh/host
+
