@@ -1,0 +1,43 @@
+<mxfile host="app.diagrams.net" modified="2023-07-24T19:34:01.817Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="W73y2nkFtsuoGkkOyZy4" version="21.6.2" type="device">
+  <diagram name="Página-1" id="RgrYOTdGLo7NwYWe-Gxm">
+    <mxGraphModel dx="633" dy="364" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="PPor8ebMHbMK-luA_O3T-8" value="Azure Cloud" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[1,1,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];rounded=1;absoluteArcSize=1;arcSize=2;html=1;strokeColor=none;gradientColor=none;shadow=0;dashed=0;fontSize=12;fontColor=#9E9E9E;align=left;verticalAlign=top;spacing=10;spacingTop=-4;whiteSpace=wrap;fillColor=#F3E5F5;" parent="1" vertex="1">
+          <mxGeometry x="34" y="30" width="760" height="290" as="geometry" />
+        </mxCell>
+        <mxCell id="PPor8ebMHbMK-luA_O3T-4" value="PostgreSQL Database" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/mscae/Azure_Database_for_PostgreSQL_servers.svg;" parent="1" vertex="1">
+          <mxGeometry x="509.8" y="105" width="68.4" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Ek91jODgZmLzPsEmbFSd-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.778;entryY=1.025;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="PPor8ebMHbMK-luA_O3T-5" target="PPor8ebMHbMK-luA_O3T-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PPor8ebMHbMK-luA_O3T-5" value="Arduíno Energy-Spy" style="dashed=0;outlineConnect=0;html=1;align=center;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;shape=mxgraph.weblogos.arduino;fillColor=#36868D;strokeColor=none" parent="1" vertex="1">
+          <mxGeometry x="570" y="376" width="67.4" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="PPor8ebMHbMK-luA_O3T-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=0;" parent="1" source="PPor8ebMHbMK-luA_O3T-7" target="PPor8ebMHbMK-luA_O3T-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PPor8ebMHbMK-luA_O3T-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;entryX=0.278;entryY=1.013;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="292.80000000000007" y="430" as="sourcePoint" />
+            <mxPoint x="292.03999999999985" y="191.03999999999996" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PPor8ebMHbMK-luA_O3T-9" value="Usuários Finais" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;spacingTop=3;image=img/lib/active_directory/users.svg;" parent="1" vertex="1">
+          <mxGeometry x="259.8" y="430" width="66" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="Ek91jODgZmLzPsEmbFSd-1" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="249.8" y="80" width="100" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="PPor8ebMHbMK-luA_O3T-6" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn0.iconfinder.com/data/icons/long-shadow-web-icons/512/python-128.png" parent="Ek91jODgZmLzPsEmbFSd-1" vertex="1">
+          <mxGeometry width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="PPor8ebMHbMK-luA_O3T-7" value="WebApp" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/App_Services.svg;" parent="Ek91jODgZmLzPsEmbFSd-1" vertex="1">
+          <mxGeometry x="20" y="30" width="80" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
