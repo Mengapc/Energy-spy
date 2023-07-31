@@ -2,13 +2,16 @@
 #include <LiquidCrystal_I2C.h>
 #include <SPI.h>
 #include <Ethernet.h>
+#include "EmonLib.h"
 
 #define endereco  0x27
 #define colunas   16
 #define linhas    2
 
+EnergyMonitor SCT013;
 LiquidCrystal_I2C lcd(endereco, colunas, linhas);
 
+int pino_sct = 1;
 //Definicoes de IP, mascara de rede e gateway
 byte mac[] = {
   0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
@@ -32,22 +35,27 @@ int    COD_CLIENTE = 1;
 float tensao = 127;
 float corrente = 0;
 float potencia = 0;
+float potencia_kwh = 0;
 
 // Frequencia de atualização do servidor
 const long interval = 30 * 1000; // ms
 unsigned long previousMillis = 0;  // último envio ao serviço cloud
 
-void setup()
+void setup()ProfessorSedeni
 {
+  valor_corrente();
+  valor_potencia();
   lcd.init();
   lcd.backlight();
   lcd.clear();
 
-  lcd.print("Corrente: variável");
-  delay(500);
+  lcd.print("Corrente: ");
+  lcd.print(corrente);
+  delay(1000);
   lcd.setCursor(0, 1);
-  lcd.print("Potencia: variável");
-  delay(500);
+  lcd.print("Potencia: ");
+  lcd.print(potencia_kwh);
+  delay(1000);
 
   lcd.noBacklight();
   delay(2000);
@@ -75,30 +83,33 @@ void setup()
 }
  
 void loop() {
+  
+  void valor_corrente{
+    double Irms = emon1.calcIrms(1480);
+    corrente = Irms;
+  }
 
-  //Aguarda conexao do browser
+  void valor_potencia() {
+    potencia = tensao * corrente;
+    potencia_kwh = potencia/1000
+  }
+
   EthernetClient client = server.available();
   if (client) {
     Serial.println("new client");
-    // an http request ends with a blank line
     boolean currentLineIsBlank = true;
     while (client.connected()) {
       if (client.available()) {
         char c = client.read();
         Serial.write(c);
-        // if you've gotten to the end of the line (received a newline
-        // character) and the line is blank, the http request has ended,
-        // so you can send a reply
         if (c == '\r\n' && currentLineIsBlank) {
-          // send a standard http response header
           client.println("HTTP/1.1 200 OK");
           client.println("Content-Type: text/html");
           client.println("Connection: close");
-          client.println("Refresh: 2"); //Recarrega a pagina a cada 2seg
+          client.println("Refresh: 2"); 
           client.println();
           client.println("<!DOCTYPE HTML>");
           client.println("<html>");
-          //Configura o texto e imprime o titulo no browser
           client.print("<font color=#FF0000><b><u>");
           client.print("Envio de informacoes pela rede utilizando Arduino");
           client.print("</u></b></font>");
@@ -106,14 +117,12 @@ void loop() {
           client.println("<h3>Ethernet</h3>");
           client.print("<b>IP:</b>");
           for (byte thisByte = 0; thisByte < 4; thisByte++) {
-            // print the value of each byte of the IP address:
             client.print(Ethernet.localIP()[thisByte], DEC);
             client.print("."); 
           }
           client.println("<br/>");
           client.print("<b>Default Gateway:</b>");
           for (byte thisByte = 0; thisByte < 4; thisByte++) {
-            // print the value of each byte of the IP address:
             client.print(Ethernet.gatewayIP()[thisByte], DEC);
             client.print("."); 
           }
@@ -122,21 +131,16 @@ void loop() {
           break;
         }
         if (c == '\r\n') {
-          // you're starting a new line
           currentLineIsBlank = true;
         } 
         else if (c != '\r') {
-          // you've gotten a character on the current line
           currentLineIsBlank = false;
         }
       }
     }
-    // give the web browser time to receive the data
     delay(1);
-    // close the connection:
     client.stop();
   }
-  // Leitura de sensores e envio para cloud
   unsigned long currentMillis = millis();
   if ((currentMillis - previousMillis) > interval) {
     previousMillis = currentMillis;
@@ -145,11 +149,6 @@ void loop() {
     Serial.println(potencia);
     enviarDados();
   }
-}
-
-void lerSensores() {
-  corrente = random(2, 10);
-  potencia = tensao * corrente;
 }
 
 void enviarDados() {
