@@ -41,7 +41,7 @@ float potencia_kwh = 0;
 const long interval = 30 * 1000; // ms
 unsigned long previousMillis = 0;  // último envio ao serviço cloud
 
-void setup()ProfessorSedeni
+void setup()
 {
   valor_corrente();
   valor_potencia();
@@ -86,6 +86,7 @@ void loop() {
   
   void valor_corrente{
     double Irms = emon1.calcIrms(1480);
+    if(Irms<0.02){Irms=0; potencia = 0;}
     corrente = Irms;
   }
 
