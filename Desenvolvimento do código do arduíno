@@ -38,4 +38,15 @@ void setup() {
 EnergyMonitor emon1;
 
 int pino_sct = 1;
-double Irms = emon1.calcIrms(1480);
+
+void valor_corrente{
+    double Irms = emon1.calcIrms(1480);
+    if(Irms<0.02){Irms=0; potencia = 0;}
+    corrente = Irms;
+  }
+
+  void valor_potencia() {
+    potencia = tensao * corrente;
+    potencia_kwh = potencia/1000
+  }
+
