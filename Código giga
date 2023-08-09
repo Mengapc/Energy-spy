@@ -11,7 +11,7 @@
 EnergyMonitor SCT013;
 LiquidCrystal_I2C lcd(endereco, colunas, linhas);
 
-int pino_sct = 1;
+int pino_sct = A0;
 //Definicoes de IP, mascara de rede e gateway
 byte mac[] = {
   0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
@@ -43,8 +43,8 @@ unsigned long previousMillis = 0;  // último envio ao serviço cloud
 
 void setup()
 {
-  valor_corrente();
-  valor_potencia();
+  void valor_corrente();
+  void valor_potencia();
   lcd.init();
   lcd.backlight();
   lcd.clear();
@@ -103,7 +103,8 @@ void loop() {
       if (client.available()) {
         char c = client.read();
         Serial.write(c);
-        if (c == '\r\n' && currentLineIsBlank) {
+        if (c == '\r') {
+          continue;
           client.println("HTTP/1.1 200 OK");
           client.println("Content-Type: text/html");
           client.println("Connection: close");
@@ -131,7 +132,7 @@ void loop() {
           client.println("</html>");
           break;
         }
-        if (c == '\r\n') {
+        if (c == '\n') {
           currentLineIsBlank = true;
         } 
         else if (c != '\r') {
@@ -145,7 +146,8 @@ void loop() {
   unsigned long currentMillis = millis();
   if ((currentMillis - previousMillis) > interval) {
     previousMillis = currentMillis;
-    lerSensores();
+    void valor_corrente();
+    void valor_potencia();
     Serial.println(corrente);
     Serial.println(potencia);
     enviarDados();
