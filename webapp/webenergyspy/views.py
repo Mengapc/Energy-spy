@@ -8,6 +8,25 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .models import *
 
+# Home
+def home(request):
+   if request.user.is_authenticated:
+      cliente = Cliente.objects.filter(user = request.user).first()
+      if cliente:
+         try:
+            obj = Leitura.objects.filter(cliente = cliente).latest('id')
+            if obj:
+               return render(request, 'home.html', {'ult_leitura': obj, 'cliente': cliente})
+            else:
+               return render(request, 'home.html', {'sem_leitura': '1', 'cliente': cliente})   
+         except:
+            return render(request, 'home.html', {'sem_leitura': '1', 'cliente': cliente})   
+      else:
+         return render(request, 'home.html', {'nao_cliente': '1'})
+   else:
+      return render(request, 'home.html', {})
+
+
 # Serviço a ser chamado pelo Arduino
 @api (DictField ({
    "cod_cliente": IntField (min=1, max=999999),

@@ -1,22 +1,37 @@
 # Python Django
+## Linux/Mac
+```
 python -m venv env
 source env/bin/activate
 pip install django
+```
+## Windows
+```
+python -m venv env_windows
+./env_windows/Scripts/activate
+pip install django
+```
+
+## Sequencia de criação de um novo projeto (Não deve ser executado novamente)
 
 django-admin startproject energyspy .
 
 django-admin startapp webenergyspy
+
+## Instalação dos pacotes necessários
 
 pip install psycopg2
 
 pip install django-simple-json-api
 pip install python-dateutil
 
-# Modelo de banco de dados
+# Modelo de banco de dados (Somente na criação de uma nova base de dados)
 python manage.py makemigrations webenergyspy
 python manage.py migrate
 
+## Definindo super usuário
 python manage.py createsuperuser
+(menga - tom....1)
 
 # Adicionar WebenergyspyConfig no arquivo energyspy/settings.py:
 INSTALLED_APPS = [

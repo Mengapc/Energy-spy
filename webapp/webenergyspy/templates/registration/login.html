@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+
+
+{% block content %}
+
+    <form class="form-signin" method="post">
+      {% load static %}
+      <img src="{% static 'webenergyspy/media/logo_energyspy.png' %}"/>
+      <h1 class="h3 mb-3 font-weight-normal">EnergySpy</h1>
+      {% csrf_token %}
+      <input name="username" id="id_username" class="form-control" placeholder="Usuário" required="" autofocus="" type="text">
+      <input name="password" id="id_password" class="form-control" placeholder="Senha" required="" type="password">
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+    </form>
+<style>
+html,
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+
+.form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+</style>
+{% endblock %}

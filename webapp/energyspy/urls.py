@@ -15,12 +15,27 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from webenergyspy import views
 from django.conf.urls.static import static
 from django.conf import settings
+from django.views.generic.base import TemplateView
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("enviar_leitura/", views.enviar_leitura),
+    path("accounts/", include("django.contrib.auth.urls")),
+    # accounts/login/ [name='login']
+    # accounts/logout/ [name='logout']
+    # accounts/password_change/ [name='password_change']
+    # accounts/password_change/done/ [name='password_change_done']
+    # accounts/password_reset/ [name='password_reset']
+    # accounts/password_reset/done/ [name='password_reset_done']
+    # accounts/reset/<uidb64>/<token>/ [name='password_reset_confirm']
+    # accounts/reset/done/ [name='password_reset_complete']
+    path('', views.home, name='home'),
+    #path('', TemplateView.as_view(template_name='home.html'), name='home'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+urlpatterns += staticfiles_urlpatterns()
