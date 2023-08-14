@@ -212,13 +212,6 @@ void enviarDados() {
 }
 
 
-
-Salvar esse link https://portal.vidadesilicio.com.br/sct-013-sensor-de-corrente-alternada/////////////////////////////////////////////////////////////
-
-
-
-
-
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <SPI.h>
