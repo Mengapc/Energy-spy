@@ -1,13 +1,14 @@
 <!-- templates/home.html -->
 {% extends 'base.html' %}
 
-{% block title %}EnergySpy{% endblock %}
+{% block title %} EnergySpy {% endblock %}
 
 {% block content %}
 
 {% load static %}
-<img src="{% static 'webenergyspy/media/logo_energyspy.png' %}"/>
-<h1 class="h3 mb-3 font-weight-normal">EnergySpy</h1>
+
+<img class="h3 mb-3 fixed-top" src="{% static 'webenergyspy/media/logo_energyspy.png' %}"/>
+<h1 class="h3 mb-3  position-absolute top-0 start-50 translate-middle-x"><font color="#FFDE59">EnergySpy</fontcolor></h1>
 
 {% if user.is_authenticated %}
   <p><b>Usuário:</b> {{ user.username }}</p>
@@ -16,16 +17,30 @@
       <p><b>Endereço:</b> {{ cliente.endereco }}</p>
    {% endif %}
    {% if ult_leitura %}
-   
-     <p><b>Última Leitura:</b></p>
-     <table>
-      <th>Tensão</th>
-      <th>Potência</th>
-      <th>Corrente</th>
-      <tr>
+    
+
+      <p><b>Última Leitura:</b></p>
+     <table class="table table-bordered color: #FFDE59">
+      <style type="text/css">
+         th {
+             color: #FFDE59;
+         }
+         td {
+             color: #FFDE59;
+         }  
+      </style>
+      <thead>
+         <tr>
+           <th scope="col">Tensão</th>
+           <th scope="col">Potência</th>
+           <th scope="col">Corrente</th>
+           <th scope="col">Horário</th>
+         </tr>
+       </thead>
          <td>{{ ult_leitura.tensao }}</td>
          <td>{{ ult_leitura.potencia }}</td>
          <td>{{ ult_leitura.corrente }}</td>
+         <td>{{ ult_leitura.datahora }}</td>
       </tr>
      </table>
   {% endif %}
@@ -35,9 +50,10 @@
   {% if sem_leitura %}
      <p><b>Ainda não possui nenhuma leitura. Já instalou seu equipamento?</b></p>
   {% endif %}
-  <p><a href="{% url 'logout' %}">Log Out</a></p>
+  <p><a class ="position-absolute bottom-0 start-50 translate-middle-x" href="{% url 'logout' %}">Log Out</a></p>
 {% else %}
   <p>Você precisa efetuar o login</p>
   <a href="{% url 'login' %}">Log In</a>
 {% endif %}
 {% endblock %}
+
