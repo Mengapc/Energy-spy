@@ -70,10 +70,13 @@ void loop() {
       if (client.available()) {
         char c = client.read();
         Serial.write(c);
+        if (c == '\r') {
+          continue;
+        }
         // if you've gotten to the end of the line (received a newline
         // character) and the line is blank, the http request has ended,
         // so you can send a reply
-        if (c == '\r\n' && currentLineIsBlank) {
+        if (c == '\n' && currentLineIsBlank) {
           // send a standard http response header
           client.println("HTTP/1.1 200 OK");
           client.println("Content-Type: text/html");
@@ -105,7 +108,7 @@ void loop() {
           client.println("</html>");
           break;
         }
-        if (c == '\r\n') {
+        if (c == '\n') {
           // you're starting a new line
           currentLineIsBlank = true;
         } 
