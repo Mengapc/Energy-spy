@@ -8,10 +8,10 @@
 #define colunas   16
 #define linhas    2
 
-EnergyMonitor emon1;
+EnergyMonitor SCT013;
 LiquidCrystal_I2C lcd(endereco, colunas, linhas);
 
-int pino_sct = (A0);
+int pino_sct = A0;
 //Definicoes de IP, mascara de rede e gateway
 byte mac[] = {
   0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
@@ -41,48 +41,11 @@ float potencia_tarifa = 0;
 // Frequencia de atualização do servidor
 const long interval = 30 * 1000; // ms
 unsigned long previousMillis = 0;  // último envio ao serviço cloud
-  void valor_corrente() {
-    double Irms = emon1.calcIrms(1480);
-    if(Irms<0.02){Irms=0; potencia = 0;}
-    corrente = Irms;
-  }
-
-  void valor_potencia() {
-    potencia = tensao * corrente;
-    potencia_kwh = potencia/1000;
-  }
-
-  void valor_tarifa() {
-  potencia_tarifa = potencia_kwh * 0,57;
-  }
 
 void setup(){
   
-  emon1.current(pino_sct, 6.0606);
+  SCT013.current(pino_sct, 6.0606);
 
-  void valor_tarifa();
-  void valor_corrente();
-  void valor_potencia();
-  lcd.init();
-  lcd.backlight();
-  lcd.clear();
-
-  lcd.print("Corrente: ");
-  lcd.print(corrente);
-  delay(1000);
-  lcd.setCursor(0, 1);
-  lcd.print("Potencia: ");
-  lcd.print(potencia_kwh);
-  delay(1000);
-  lcd.print("Tarifa: ");
-  lcd.print(potencia_tarifa);
-  delay(1000);
-  
-  lcd.noBacklight();
-  delay(2000);
-  lcd.backlight();
-  delay(2000);
-  
   Serial.begin(9600);
   while (!Serial) {
   ; // wait for serial port to connect. Needed for Leonardo only
@@ -104,7 +67,28 @@ void setup(){
 }
  
 void loop() {
-        
+
+  //calculo corrente
+    double Irms = SCT013.calcIrms(1480);
+    if(Irms<0.02){Irms=0; potencia = 0;}
+    corrente = Irms;
+  //calculo potencia
+    potencia = tensao * corrente;
+    potencia_kwh = potencia/1000;
+  //calculo tarifa
+    potencia_tarifa = potencia_kwh * 0,57;
+
+  lcd.init();
+  lcd.backlight();
+  lcd.clear();
+
+  lcd.print("Corrente: ");
+  lcd.print(corrente);
+  lcd.setCursor(0, 1);
+  lcd.print("Potencia: ");
+  lcd.print(potencia_kwh);
+  delay(1000);
+  
   EthernetClient client = server.available();
   if (client) {
     Serial.println("new client");
@@ -156,13 +140,23 @@ void loop() {
   unsigned long currentMillis = millis();
   if ((currentMillis - previousMillis) > interval) {
     previousMillis = currentMillis;
-    void valor_corrente();
-    void valor_potencia();
+
+  //calculo corrente
+    double Irms = SCT013.calcIrms(1480);
+    if(Irms<0.02){Irms=0; potencia = 0;}
+    corrente = Irms;
+  //calculo potencia
+    potencia = tensao * corrente;
+    potencia_kwh = potencia/1000;
+  //calculo tarifa
+    potencia_tarifa = potencia_kwh * 0,57;
+
     Serial.println(corrente);
     Serial.println(potencia);
     void enviarDados();
   }
 }
+
   void enviarDados() {
   if(clientEnvio.connect(HOST_NAME, HTTP_PORT)) {
     Serial.println("Connected to server");
