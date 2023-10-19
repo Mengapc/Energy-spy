@@ -143,7 +143,7 @@ void loop() {
 
   //calculo corrente
     double Irms = SCT013.calcIrms(1480);
-    if(Irms<0.02){Irms=0; potencia = 0;}
+    if(Irms<0.04){Irms=0; potencia = 0;}
     corrente = Irms;
   //calculo potencia
     potencia = tensao * corrente;
